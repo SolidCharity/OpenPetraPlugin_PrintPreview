@@ -133,13 +133,13 @@ namespace {#NAMESPACE}
     private void SelectRowByDataTableIndex(Int32 ARowNumberInTable)
     {
         Int32 RowNumberGrid = -1;
-        for (int Counter = 0; Counter < {#GRID}.DataSource.Count; Counter++)
+        for (int Counter = 0; Counter < {#GRIDNAME}.DataSource.Count; Counter++)
         {
             bool found = true;
             foreach (DataColumn myColumn in FMainDS.{#MASTERTABLE}.PrimaryKey)
             {
                 string value1 = FMainDS.{#MASTERTABLE}.Rows[ARowNumberInTable][myColumn].ToString();
-                string value2 = ({#GRID}.DataSource as DevAge.ComponentModel.BoundDataView).DataView[Counter][myColumn.Ordinal].ToString();
+                string value2 = ({#GRIDNAME}.DataSource as DevAge.ComponentModel.BoundDataView).DataView[Counter][myColumn.Ordinal].ToString();
                 if (value1 != value2)
                 {
                     found = false;
@@ -150,10 +150,10 @@ namespace {#NAMESPACE}
                 RowNumberGrid = Counter + 1;
             }
         }
-        {#GRID}.Selection.ResetSelection(false);
-        {#GRID}.Selection.SelectRow(RowNumberGrid, true);
+        {#GRIDNAME}.Selection.ResetSelection(false);
+        {#GRIDNAME}.Selection.SelectRow(RowNumberGrid, true);
         // scroll to the row
-        {#GRID}.ShowCell(RowNumberGrid);
+        {#GRIDNAME}.ShowCell(RowNumberGrid);
 
         FocusedRowChanged(this, new SourceGrid.RowEventArgs(RowNumberGrid));
     }
@@ -166,13 +166,13 @@ namespace {#NAMESPACE}
             return 1;
         }
 
-        for (int Counter = 0; Counter < {#GRID}.DataSource.Count; Counter++)
+        for (int Counter = 0; Counter < {#GRIDNAME}.DataSource.Count; Counter++)
         {
             bool found = true;
             foreach (DataColumn myColumn in FMainDS.{#MASTERTABLE}.PrimaryKey)
             {
                 string value1 = row[myColumn.Ordinal].ToString();
-                string value2 = ({#GRID}.DataSource as DevAge.ComponentModel.BoundDataView).DataView.Table.Rows[Counter][myColumn.Ordinal].ToString();
+                string value2 = ({#GRIDNAME}.DataSource as DevAge.ComponentModel.BoundDataView).DataView.Table.Rows[Counter][myColumn.Ordinal].ToString();
                 if (value1 != value2)
                 {
                     found = false;
@@ -190,7 +190,7 @@ namespace {#NAMESPACE}
     /// return the selected row
     private {#MASTERTABLETYPE}Row GetSelectedRow()
     {
-        DataRowView[] SelectedGridRow = {#GRID}.SelectedDataRowsAsDataRowView;
+        DataRowView[] SelectedGridRow = {#GRIDNAME}.SelectedDataRowsAsDataRowView;
 
         if (SelectedGridRow.Length >= 1)
         {
@@ -236,9 +236,9 @@ namespace {#NAMESPACE}
     {
         int RecordCount;
         
-        if ({#GRID}.DataSource != null) 
+        if ({#GRIDNAME}.DataSource != null) 
         {
-            RecordCount = ((DevAge.ComponentModel.BoundDataView){#GRID}.DataSource).Count;
+            RecordCount = ((DevAge.ComponentModel.BoundDataView){#GRIDNAME}.DataSource).Count;
             lblRecordCounter.Text = String.Format(Catalog.GetPluralString("{0} record", "{0} records", RecordCount, true), RecordCount);
         }                
     }
